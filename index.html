@@ -6,8 +6,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, 
     minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>画板</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    hi
+<div id="canvas"></div>
+<script>
+    canvas.onclick=(e) =>{
+        console.log(e)
+        let div=document.createElement('div')
+        div.style.position = 'absolute'
+        div.style.left = e.clientX +'px'
+        div.style.top = e.clientY +'px'
+        div.style.width = '6px'
+        div.style.height = '6px'
+        div.style.marginLeft = '-3px'
+        div.style.marginTop = '-3px'
+        canvas.appendChild(div)
+        div.style.borderRadius = '50%'
+        div.style.backgroundColor = 'black'
+    }
+</script>
 </body>
 </html>
