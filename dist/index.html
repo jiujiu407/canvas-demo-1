@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, 
+    minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>画板</title>
+        <link rel="stylesheet" href="/style.e308ff8e.css">
+<script src="/style.e308ff8e.js"></script></head>
+<body>
+<canvas id="canvas" width="100" height="100">
+    
+</canvas>
+<script>alert("请在白色区域内进行作画");
+var canvas = document.getElementById("canvas");
+canvas.width = document.documentElement.clientWidth;
+canvas.height = document.documentElement.clientHeight;
+var ctx = canvas.getContext("2d");
+var painting = false;
+var last;
+ctx.fillStyle = "black";
+ctx.strokeStytle = 'none';
+ctx.lineWidth = 8;
+ctx.lineCap = 'round';
+
+function drawLine(x1, y1, x2, y2) {
+  ctx.beginPath();
+  ctx.moveTo(x1, y1);
+  ctx.lineTo(x2, y2);
+  ctx.stroke();
+} // 检测屏幕是否是触摸屏
+
+
+var isTouchDevice = ('ontouchstart' in document.documentElement);
+console.log(isTouchDevice);
+
+if (isTouchDevice) {
+  canvas.ontouchstart = function (e) {
+    var x = e.touches[0].clientX;
+    var y = e.touches[0].clientY;
+    last = [x, y];
+  };
+
+  canvas.ontouchmove = function (e) {
+    var x = e.touches[0].clientX;
+    var y = e.touches[0].clientY;
+    drawLine(last[0], last[1], x, y);
+    last = [x, y];
+  };
+} else {}
+
+canvas.onmousedown = function (e) {
+  painting = true;
+  last = [e.clientX, e.clientY];
+};
+
+canvas.onmousemove = function (e) {
+  if (painting === true) {
+    drawLine(last[0], last[1], e.clientX, e.clientY);
+    last = [e.clientX, e.clientY];
+  }
+};
+
+canvas.onmouseup = function () {
+  painting = false;
+};</script>
+</body>
+</html>
