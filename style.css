@@ -4,6 +4,7 @@
   box-sizing: border-box;
 }
 #canvas {
+  position: fixed;
   display: block;
   background: white;
   width: 100%;
